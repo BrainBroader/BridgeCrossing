@@ -1,4 +1,7 @@
 class State:
+    """
+    Represents an instance of the Bridge Crossing problem
+    """
 
     def __init__(self, family: dict):
         self.start = family.copy()
@@ -10,7 +13,6 @@ class State:
         cls.start = start.copy()
         cls.finish = finish.copy()
         cls.score = -1
-
 
     def get_start(self) -> dict:
         return self.start
@@ -29,11 +31,3 @@ class State:
 
     def set_score(self, score: int):
         self.score = score
-
-
-
-
-
-
-
-
