@@ -13,4 +13,7 @@ f1.cross_the_bridge("george","nick")
 f1.print()
 f1.return_lamp("nick")
 f1.print()
+print(f1.heuristic())
+if {} :
+    print("hello")
 
