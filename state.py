@@ -1,3 +1,6 @@
+from itertools import combinations
+
+
 class State:
     """ Represents an instance of the Bridge Crossing problem
 
@@ -18,8 +21,10 @@ class State:
     def __init__(self, family, finish={}):
         self.start = family.copy()
         self.finish = finish.copy()
+        self.lamp = True
         self.score = -1
         self.path = 0
+        self.cost_of_state = -1
         self.father = None
 
     def cross_bridge(self, members):
@@ -39,6 +44,8 @@ class State:
         del self.start[members[0]]
         self.finish[members[1]] = self.start.get(members[1])
         del self.start[members[1]]
+        self.cost_of_state = max(self.finish.get(members[0]),self.finish.get(members[1]))
+        self.lamp = False
 
         return True
 
@@ -57,6 +64,8 @@ class State:
 
         self.start[member] = self.finish.get(member)
         del self.finish[member]
+        self.cost_of_state = self.start.get(member)
+        self.lamp = True
 
         return True
 
@@ -86,16 +95,36 @@ class State:
             return 0
         return max(self.start.values())
 
-    # TODO
-    def path_cost(self) -> int:
-        # return self.father.path +
-        pass
 
-    # TODO
+    def path_cost(self):
+        self.path = self.father.path + self.cost_of_state
+        return self.path
+
+
     def get_children(self):
-        pass
+        children = []
+        child = State(self.start, self.finish)
+        if self.lamp:
+            comb = combinations(self.start,2)
+            for i in comb:
+                if child.cross_bridge(i):
+                    child.set_father(self)
+                    child.evaluate()
+                    children.append(child)
+                    child = State(self.start, self.finish)
+        else:
+            for i in self.finish:
+                if child.return_lamp(i):
+                    child.set_father(self)
+                    child.evaluate()
+                    children.append(child)
+                    child = State(self.start, self.finish)
+        return children
 
-    # TODO (?) use heuristic
+
+
+
+
     def is_terminal(self, limit):
         """ Checks if this state is a terminal state
 
@@ -136,11 +165,13 @@ class State:
     def set_father(self, father):
         self.father = father
 
-    # FIXME override print operator ?
-    def print(self):
+
+    def __str__(self):
+        print("-----------------------")
+        print("Starting point:")
         for i in self.start:
             print(i)
-        print("-----------------------")
+        print("Finishing point:")
         for i in self.finish:
             print(i)
         print("-----------------------")

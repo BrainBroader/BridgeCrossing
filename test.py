@@ -1,20 +1,22 @@
 from state import State
+from aialgorithms import alpha_star
+
+limit = 30
 
 family = {
-    "george": 15,
-    "nick": 20,
-    "maria": 10,
-    "kostas": 15
+    "george": 1,
+    "nick": 3,
+    "maria": 6,
+    "kostas": 8,
+    "lampros": 12
     }
 
-f1 = State(family)
-#f1.print()
-f1.evaluate()
-f1.cross_bridge(("george", "nick"))
-f1.print()
-f1.return_lamp("nick")
-f1.print()
-print(f1.heuristic())
-if {}:
-    print("hello")
+
+
+terminal_state = None
+initial_state = State(family)
+terminal_state = alpha_star.alphastar(initial_state, limit)
+if terminal_state is not None:
+    print("Yes!!!!")
+
 
