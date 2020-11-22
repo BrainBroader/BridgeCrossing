@@ -4,18 +4,15 @@ from aialgorithms import alpha_star
 limit = 30
 
 family = {
-    "george": 1,
-    "nick": 3,
-    "maria": 6,
-    "kostas": 8,
-    "lampros": 12
+    "George": 1,
+    "Nick": 3,
+    "Maria": 6,
+    "Kostas": 8,
+    "Lampros": 12
     }
 
-
-
-terminal_state = None
 initial_state = State(family)
-terminal_state = alpha_star.alphastar(initial_state, limit)
+terminal_state = alpha_star(initial_state, limit)
 if terminal_state is not None:
     print("Yes!!!!")
 

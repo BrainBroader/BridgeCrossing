@@ -184,6 +184,20 @@ class State:
     def set_father(self, father):
         self.father = father
 
+    @staticmethod
+    def compare(state):
+        """ Utility function used to compare State objects.
+
+        The comparison of State objects is based on the score attribute.
+
+        Args:
+            state: A State object.
+
+        Returns:
+            The value of the score attribute of a State object as an int.
+        """
+        return state.get_score()
+
     def print(self):
         print('-----------------------')
         print('Starting side:')
