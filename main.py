@@ -1,18 +1,16 @@
+import sys
+
+from filehandler import read_csv
+
 from state import State
 from aialgorithms import alpha_star
 
-limit = 30
+people = read_csv(sys.argv[1])
+limit = int(sys.argv[2])
 
-family = {
-    "George": 1,
-    "Nick": 3,
-    "Maria": 6,
-    "Kostas": 8,
-    "Lampros": 12
-    }
-
-initial_state = State(family)
+initial_state = State(people)
 terminal_state = alpha_star(initial_state, limit)
+
 if terminal_state is not None:
     print("Yes!!!!")
 
