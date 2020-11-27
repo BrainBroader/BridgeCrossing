@@ -23,6 +23,17 @@ def alpha_star(initial_state, limit):
         current_state = states.pop(0)
         if current_state.is_terminal(limit):
             return current_state
-        states.extend(current_state.get_children())
+        states.extend(current_state.get_children("alphastar"))
+        states.sort(key=State.compare)
+    return None
+
+
+def best_fs(initial_state, limit):
+    states = [initial_state]
+    while states:
+        current_state = states.pop(0)
+        if current_state.is_terminal(limit):
+            return current_state
+        states.extend(current_state.get_children("bestfs"))
         states.sort(key=State.compare)
     return None

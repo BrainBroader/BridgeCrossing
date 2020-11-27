@@ -77,7 +77,7 @@ class State:
 
         return True
 
-    def evaluate(self):
+    def evaluate(self, algorithm):
         """ Returns an integer representing the score of the state.
 
         The score is computed as follows: Let n be the state, then the score is computed by the equation
@@ -87,7 +87,11 @@ class State:
         Returns:
             The state's score as an integer.
         """
-        self.score = self.heuristic() + self.path_cost()
+        if algorithm == "alphastar":
+            self.score = self.heuristic() + self.path_cost()
+        elif algorithm == "bestfs":
+            self.path_cost()
+            self.score = self.heuristic()
         return self.score
 
     def heuristic(self):
@@ -115,7 +119,7 @@ class State:
         self.path = self.father.path + self.cost_state
         return self.path
 
-    def get_children(self):
+    def get_children(self, algorithm):
         """ Calculates the children of this state.
 
         The calculation of the children is based on whether the lamp has return to the starting side of the bridge or not.
@@ -132,14 +136,14 @@ class State:
             for i in comb:
                 if child.cross_bridge(i):
                     child.set_father(self)
-                    child.evaluate()
+                    child.evaluate(algorithm)
                     children.append(child)
                     child = State(self.start, self.finish)
         else:
             for i in self.finish:
                 if child.return_lamp(i):
                     child.set_father(self)
-                    child.evaluate()
+                    child.evaluate(algorithm)
                     children.append(child)
                     child = State(self.start, self.finish)
         return children
@@ -184,6 +188,9 @@ class State:
 
     def set_father(self, father):
         self.father = father
+
+    def get_path(self):
+        return self.path
 
     @staticmethod
     def compare(state):
