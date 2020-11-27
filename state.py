@@ -151,7 +151,8 @@ class State:
         or there aren't any more people in the starting side of the bridge.
 
         Args:
-            limit: time limitation of the Bridge Crossing game.
+            limit:
+                An int representing the time limitation of the Bridge Crossing game.
 
         Returns:
             True if this is a terminal state, else False.
@@ -191,7 +192,8 @@ class State:
         The comparison of State objects is based on the score attribute.
 
         Args:
-            state: A State object.
+            state:
+                A State object.
 
         Returns:
             The value of the score attribute of a State object as an int.

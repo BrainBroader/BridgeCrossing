@@ -10,8 +10,10 @@ def alpha_star(initial_state, limit):
     """ An implementation of Alpha Star algorithm.
 
     Args:
-        initial_state: A State object representing the state from which search will start.
-        limit: An int representing the time limit of search.
+        initial_state:
+            A State object representing the state from which search will start.
+        limit:
+            An int representing the time limit of search.
 
     Returns:
        A State object representing the goal-state.
