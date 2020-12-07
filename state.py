@@ -14,8 +14,10 @@ class State:
             If True, then the next move must be the crossing of two people to the finishing side. Else, one person must
             return with the lamp at the starting side of the bridge.
         score:
-            An integer representing the score of the state. Let n be the state, then the score is computed
-            by the equation f(n) = h(n) + g(n), where h is the heuristic used and g is the cost from the root down to node n.
+            An integer representing the score of the state. If the algorithm used is Alpha Star then the score is computed by the
+            equation f(n) = h(n) + g(n), where n is the state, h is the heuristic used and g is the cost from the root down to node n.
+            Else, is the algorithm used is Best First Search then the score is computed by the equation f(n) = h(n), where n is the
+            state and h is the heuristic used.
         path:
             An integer representing the cost from the root down to this state.
         cost_state:
@@ -52,7 +54,9 @@ class State:
         del self.start[people[0]]
         self.finish[people[1]] = self.start.get(people[1])
         del self.start[people[1]]
+
         self.cost_state = max(self.finish.get(people[0]), self.finish.get(people[1]))
+
         self.lamp = False
 
         return True
@@ -72,7 +76,9 @@ class State:
 
         self.start[member] = self.finish.get(member)
         del self.finish[member]
+
         self.cost_state = self.start.get(member)
+
         self.lamp = True
 
         return True
@@ -80,9 +86,12 @@ class State:
     def evaluate(self, algorithm):
         """ Returns an integer representing the score of the state.
 
-        The score is computed as follows: Let n be the state, then the score is computed by the equation
-        f(n) = h(n) + g(n),
-        where h is the heuristic used and g is the cost from the root down to node n.
+        If the algorithm used is Alpha Star, the score is computed as follows:
+            Let n be the state, then the score is computed by the equation f(n) = h(n) + g(n),
+            where h is the heuristic used and g is the cost from the root down to node n.
+        Else, if the algorithm used is Best First Search, the score is computed as follows:
+            Let n be the state, then the score is computed by the equation f(n) = h(n),
+            where where h is the heuristic used.
 
         Returns:
             The state's score as an integer.
@@ -157,11 +166,15 @@ class State:
         Args:
             limit:
                 An int representing the time limitation of the Bridge Crossing game.
+                 If the value is zero, then the limitation isn't considered.
 
         Returns:
             True if this is a terminal state, else False.
         """
-        if (self.score >= limit) or (not self.start):
+        if limit == 0:
+            if not self.start:
+                return True
+        elif (self.score >= limit) or (not self.start):
             return True
         return False
 
@@ -173,6 +186,9 @@ class State:
 
     def get_score(self):
         return self.score
+
+    def get_path(self):
+        return self.path
 
     def get_father(self):
         return self.father
@@ -188,9 +204,6 @@ class State:
 
     def set_father(self, father):
         self.father = father
-
-    def get_path(self):
-        return self.path
 
     @staticmethod
     def compare(state):
