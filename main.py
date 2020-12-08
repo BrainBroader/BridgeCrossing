@@ -3,7 +3,13 @@ import sys
 from filehandler import read_csv
 
 from state import State
-from aialgorithms import alpha_star, best_fs
+from aialgorithms import alpha_star
+
+if len(sys.argv) != 3:
+    print("[ERROR] main - Missing command line arguments")
+    print("[ERROR] main - First argument must be a valid path to the dataset")
+    print("[ERROR] main - Second argument must be zero or a positive integer")
+    sys.exit(1)
 
 people = read_csv(sys.argv[1])
 if people is None:
