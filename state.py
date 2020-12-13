@@ -228,4 +228,3 @@ class State:
         print('\nFinishing side:')
         for person in self.finish:
             print(person)
-        print('-----------------------')
