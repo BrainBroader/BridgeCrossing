@@ -7,7 +7,12 @@ A solution to the Bridge Crossing problem using A* search algorithm.
 
 **Team:** Lampros Lountzis (@lamproslntz), Andreas Gouletas (@BrainBroader)
 
-### Problem description 
+## Table of Contents
+* [Problem Description](#problem-description)
+* [Dataset](#dataset)
+* [Execution Instructions](#execution-instructions)
+
+### Problem Description 
 In this problem a family needs to cross a river using a bridge that connects the two banks. The bridge can withstand a maximum of two people at a time. 
 Also, the family has one lamp which must be used by one of the people who cross the river every time. Each member of the family needs a different time to cross
 the river. This time is fixed (in any direction) for each member of the family. When two members of the family cross the river together, 
